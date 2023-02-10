@@ -11,20 +11,21 @@ jobs:
           - ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - name: clone SOEM
+        uses: actions/checkout@v3
         with:
+          path: 'SOEM'
           repository: OpenEtherCATsociety/SOEM
           submodules: true
-      - run: |
+      - run:
           ls
-          cd SOEM
-      - name: Configure
-        shell: bash
+          
+      - name: Configure SOEM
         run: |
-          cmake -E make_directory build
-          cmake -B build -S . \
+          cmake -E make_directory $GITHUB_WORKSPACE/SOEM/build
+          cmake -B $GITHUB_WORKSPACE/SOEM/build -S $GITHUB_WORKSPACE/SOEM \
              -DCMAKE_BUILD_TYPE=$BUILD_TYPE
-      - name: Build
-        shell: bash
-        run: |
-          cmake --build build -j4 --target install
+      
+      - name: Build SOEM
+        run:
+          cmake --build $GITHUB_WORKSPACE/SOEM/build -j4 --target install
