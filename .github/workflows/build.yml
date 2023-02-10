@@ -15,7 +15,7 @@ jobs:
         with:
           repository: OpenEtherCATsociety/SOEM
           submodules: true
-      - run: 
+      - run: |
           ls
           cd SOEM
       - name: Configure
